@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; background: #000; }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+  }
+}
+
+@layer utilities {
+  .cursor-none { cursor: none; }
+  .font-bebas { font-family: 'Bebas Neue', sans-serif; }
+  .font-dm { font-family: 'DM Serif Display', serif; }
+}
+
+/* Ticker animation */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker 28s linear infinite; }
+
+/* Scroll indicator */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(0.7); }
+}
+.scroll-line { animation: scrollPulse 2s ease-in-out infinite; }
+
+/* Hero grid background */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Fade-in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Service row hover fill */
+.service-row { position: relative; overflow: hidden; }
+.service-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #1a1a1a;
+  width: 0;
+  transition: width 0.4s ease;
+  z-index: 0;
+}
+.service-row:hover::before { width: 100%; }
+.service-row > * { position: relative; z-index: 1; }
+
+/* Form underline focus */
+.form-field { position: relative; }
+.form-field::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: #fff;
+  transition: width 0.4s;
+}
+.form-field:focus-within::after { width: 100%; }
+
+/* Team card top line */
+.team-card { position: relative; }
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #555, transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+}
+.team-card:hover::before { transform: scaleX(1); }
+
+/* Custom cursor */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.cursor-dot {
+  width: 10px; height: 10px;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition: width 0.2s, height 0.2s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(255,255,255,0.4);
+  z-index: 9998;
+  transition: width 0.3s, height 0.3s;
+}
+.cursor-dot.expanded  { width: 16px; height: 16px; }
+.cursor-ring.expanded { width: 56px;  height: 56px; }
+
+@media (max-width: 768px) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
