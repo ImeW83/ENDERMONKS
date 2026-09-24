@@ -48,8 +48,9 @@ function ProjectCard({ p, className = '', style = {} }) {
         <div className="font-bebas text-white tracking-[0.04em] mb-3" style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)' }}>
           {p.name}
         </div>
-        <a href="#" className="text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 w-fit no-underline">
-          View Project ↗
+<button className="text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 w-fit">
+  View Project ↗
+</button>          View Project ↗
         </a>
       </div>
     </div>
@@ -73,8 +74,9 @@ export default function Projects() {
               Our <em className="font-dm not-italic text-grey-6">Projects</em>
             </h2>
           </div>
-          <a href="#" className="text-[0.7rem] tracking-[0.2em] uppercase text-grey-5 border-b border-grey-4 pb-0.5 no-underline hover:text-white hover:border-white transition-colors whitespace-nowrap">
-            View All →
+<button className="text-[0.7rem] tracking-[0.2em] uppercase text-grey-5 border-b border-grey-4 pb-0.5 hover:text-white hover:border-white transition-colors whitespace-nowrap">
+  View All →
+</button>            View All →
           </a>
         </div>
 
