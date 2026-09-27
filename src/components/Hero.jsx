@@ -1,30 +1,123 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import MicroSlats from './MicroSlats/MicroSlats';
+import AnimatedLogo from './AnimatedLogo';
+
+const LOGO_SIZE = 305;
+const LOGO_WIDTH = (LOGO_SIZE * 2231) / 3070;
+
+// Background ghost words: each one holds, blurs out, and the next blurs in.
+const GHOST_WORDS = ['BUILD', 'CREATE', 'IMAGINE', 'INNOVATE'];
+const GHOST_HOLD_MS = 3500; // how long each word stays
+const GHOST_FADE_MS = 600;  // length of the fade in / fade out
+
+// Glitch effect for the DIGITAL word: two clipped, offset copies (via data-text) flicker in short bursts.
+const glitchCss = `
+.glitch{position:relative;display:inline-block;animation:glitchMain 3.6s infinite steps(1)}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;clip-path:inset(50% 0 50% 0)}
+.glitch::before{color:#B180E5;text-shadow:-2px 0 #7353BA;animation:glitchA 3.6s infinite steps(1)}
+.glitch::after{color:#FFFFFF;text-shadow:2px 0 #B180E5;animation:glitchB 3.6s infinite steps(1)}
+@keyframes glitchMain{0%,84%,100%{transform:none}85%{transform:skewX(-10deg) translateX(-4px)}87%{transform:skewX(6deg) translateX(3px)}89%{transform:none}93%{transform:translateX(-5px)}94%{transform:none}}
+@keyframes glitchA{0%,84%,100%{clip-path:inset(50% 0 50% 0);transform:none}85%{clip-path:inset(8% 0 68% 0);transform:translate(-9px,-2px)}87%{clip-path:inset(42% 0 30% 0);transform:translate(7px,1px)}89%{clip-path:inset(72% 0 6% 0);transform:translate(-5px,0)}91%{clip-path:inset(18% 0 58% 0);transform:translate(10px,0)}93%{clip-path:inset(55% 0 22% 0);transform:translate(-7px,2px)}95%{clip-path:inset(50% 0 50% 0);transform:none}}
+@keyframes glitchB{0%,84%,100%{clip-path:inset(50% 0 50% 0);transform:none}86%{clip-path:inset(62% 0 14% 0);transform:translate(8px,2px)}88%{clip-path:inset(4% 0 80% 0);transform:translate(-10px,0)}90%{clip-path:inset(36% 0 44% 0);transform:translate(6px,-1px)}92%{clip-path:inset(80% 0 2% 0);transform:translate(-4px,0)}94%{clip-path:inset(50% 0 50% 0);transform:none}}
+.ghost-word{display:inline-block;animation:ghostIn ${GHOST_FADE_MS}ms ease-out backwards;transition:opacity ${GHOST_FADE_MS}ms ease-in,filter ${GHOST_FADE_MS}ms ease-in,transform ${GHOST_FADE_MS}ms ease-in}
+.ghost-word.is-leaving{opacity:0;filter:blur(14px);transform:translateY(-3%) scale(1.02)}
+@keyframes ghostIn{from{opacity:0;filter:blur(14px);transform:translateY(3%) scale(.98)}to{opacity:1;filter:blur(0);transform:none}}
+@media (prefers-reduced-motion: reduce){.glitch,.glitch::before,.glitch::after,.ghost-word{animation:none;transition:none}}
+`;
+
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const digitalRef = useRef(null);
+  const [logoPos, setLogoPos] = useState(null);
+  const [ghostIndex, setGhostIndex] = useState(0);
+  const [ghostLeaving, setGhostLeaving] = useState(false);
+
+  // Cycle the background word. Skipped entirely for visitors who prefer reduced motion.
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    let swapTimer;
+    const cycle = setInterval(() => {
+      setGhostLeaving(true);
+      swapTimer = setTimeout(() => {
+        setGhostIndex((i) => (i + 1) % GHOST_WORDS.length);
+        setGhostLeaving(false);
+      }, GHOST_FADE_MS);
+    }, GHOST_HOLD_MS + GHOST_FADE_MS);
+    return () => {
+      clearInterval(cycle);
+      clearTimeout(swapTimer);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    function positionLogo() {
+      if (!sectionRef.current || !digitalRef.current) return;
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const wordRect = digitalRef.current.getBoundingClientRect();
+      const centerY = wordRect.top + wordRect.height / 2 - sectionRect.top;
+      setLogoPos({ top: centerY - LOGO_SIZE / 2 });
+    }
+    positionLogo();
+    window.addEventListener('resize', positionLogo);
+    document.fonts?.ready?.then(positionLogo);
+    return () => window.removeEventListener('resize', positionLogo);
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-end px-[3.5%] pb-20 overflow-hidden border-b border-grey-3"
+      className="relative min-h-screen flex flex-col justify-end px-[3.5%] pt-20 md:pt-24 pb-20 overflow-hidden border-b"
+      style={{ background: 'linear-gradient(160deg, #2F195F 0%, #0F1020 62%)', borderColor: '#2F195F' }}
     >
-      {/* Grid background */}
-      <div className="hero-grid absolute inset-0 pointer-events-none" />
+      <style>{glitchCss}</style>
 
-      {/* Radial vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.9), transparent 70%)' }}
-      />
-
-      {/* Ghost word */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bebas pointer-events-none select-none whitespace-nowrap"
-        style={{ fontSize: 'clamp(14rem,28vw,26rem)', color: 'rgba(255,255,255,0.025)', letterSpacing: '-0.02em' }}
-      >
-        BUILD
+      {/* Micro Slats background (replaces the old .hero-grid).
+          It listens for the cursor on window, so pointer-events-none is safe. */}
+      <div className="absolute inset-0 pointer-events-none">
+        <MicroSlats
+          preset="swell"
+          color="#1B0E3A"
+          glintColor="#FAA6FF"
+          backgroundColor="#0F1020"
+          slatWidth={10}
+          slatHeight={25}
+          gap={3}
+          interactive
+        />
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute right-[3.5%] bottom-20 flex flex-col items-center gap-2 z-10">
-        <div className="scroll-line w-px h-16" style={{ background: 'linear-gradient(to bottom, #555, transparent)' }} />
-        <span className="text-[0.58rem] tracking-[0.3em] uppercase text-grey-5" style={{ writingMode: 'vertical-rl' }}>Scroll</span>
+      {/* Radial vignette — keeps the headline readable over the slats */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(15,16,32,0.92), transparent 70%)' }}
+      />
+
+      {/* Ghost word — cycles through GHOST_WORDS */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bebas pointer-events-none select-none whitespace-nowrap"
+        style={{ fontSize: 'clamp(14rem,28vw,26rem)', color: 'rgba(250,166,255,0.035)', letterSpacing: '-0.02em' }}
+      >
+        <span key={ghostIndex} className={`ghost-word${ghostLeaving ? ' is-leaving' : ''}`}>
+          {GHOST_WORDS[ghostIndex]}
+        </span>
+      </div>
+
+      {/* Logo — horizontal position fixed (top-right), vertical position centered on the "DIGITAL"
+          headline word, computed from its live bounding box since the word's size/position shift
+          with the responsive clamp(). */}
+      <div
+        className="absolute z-[6] pointer-events-none"
+        style={{
+          width: LOGO_WIDTH,
+          height: LOGO_SIZE,
+          right: 168,
+          top: logoPos ? logoPos.top : 282,
+          visibility: logoPos ? 'visible' : 'hidden',
+        }}
+      >
+        <AnimatedLogo size={LOGO_SIZE} />
       </div>
 
       {/* Content */}
@@ -35,32 +128,24 @@ export default function Hero() {
 
         <h1
           className="font-bebas leading-[0.9] text-white mb-12"
-          style={{ fontSize: 'clamp(5rem,14vw,13rem)', letterSpacing: '-0.01em' }}
+          style={{ fontSize: 'clamp(4.5rem,13vw,11.5rem)', letterSpacing: '-0.01em' }}
         >
           We Build<br />
-          <em className="font-dm not-italic" style={{ color: '#e8e0d0' }}>Digital</em><br />
+          {/* The only place Rubik 80s Fade is used — keep it rare so it stays special */}
+          <em
+            ref={digitalRef}
+            data-text="DIGITAL"
+            className="glitch font-fade not-italic uppercase"
+            style={{ color: '#FAA6FF', fontSize: '0.92em', lineHeight: 1.2, letterSpacing: '0.01em' }}
+          >
+            Digital
+          </em><br />
           Empires.
         </h1>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8">
-          <p className="text-[0.9rem] leading-[1.8] text-grey-5 max-w-sm">
-            A trio of developers building world-class web, mobile, AI, and enterprise systems — from Sri Lanka, for the world.
-          </p>
-          <div className="flex gap-4 flex-wrap">
-            <a
-              href="#projects"
-              className="text-[0.72rem] tracking-[0.18em] uppercase bg-white text-black px-9 py-4 no-underline hover:opacity-85 transition-opacity"
-            >
-              View Work
-            </a>
-            <a
-              href="#contact"
-              className="text-[0.72rem] tracking-[0.18em] uppercase border border-grey-4 text-white px-9 py-4 no-underline hover:border-white transition-colors"
-            >
-              Start a Project
-            </a>
-          </div>
-        </div>
+        <p className="text-[0.9rem] leading-[1.8] text-grey-5 max-w-sm">
+          Insert Tagline
+        </p>
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ export default function Stack() {
   const ref = useReveal();
 
   return (
-    <section className="py-28 px-[3.5%] border-b border-grey-3 bg-grey-1">
+    <section id="stack" className="py-28 px-[3.5%] border-b border-grey-3 bg-grey-1">
       <div className="max-w-[1400px] mx-auto">
         <div className="mb-16">
           <p className="flex items-center gap-4 text-[0.62rem] tracking-[0.4em] uppercase text-grey-5 mb-4 before:block before:w-8 before:h-px before:bg-grey-5">

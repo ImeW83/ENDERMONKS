@@ -1,47 +1,58 @@
-import { useEffect, useState } from 'react';
+import CardNav from './CardNav/CardNav';
 
-const links = ['Services', 'Work', 'Team', 'Contact'];
+const items = [
+  {
+    label: 'Services',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'What we do', href: '#services', ariaLabel: 'Services' }],
+  },
+  {
+    label: 'Work',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'Selected projects', href: '#work', ariaLabel: 'Work' }],
+  },
+  {
+    label: 'Stats',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'By the numbers', href: '#stats', ariaLabel: 'Stats' }],
+  },
+  {
+    label: 'Team',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'Who we are', href: '#team', ariaLabel: 'Team' }],
+  },
+  {
+    label: 'Stack',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'Our arsenal', href: '#stack', ariaLabel: 'Stack' }],
+  },
+  {
+    label: 'Contact',
+    bgColor: '#1a1a1a',
+    textColor: '#f0ede8',
+    links: [{ label: 'Get in touch', href: '#contact', ariaLabel: 'Contact' }],
+  },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[3.5%] py-8 transition-all duration-300 ${
-        scrolled
-          ? 'bg-black/95 border-b border-grey-3'
-          : 'mix-blend-difference'
-      }`}
-    >
-      <a href="#hero" className="font-bebas text-[1.4rem] tracking-widest text-white no-underline">
-        Endermonks
-      </a>
-
-      <ul className="hidden md:flex gap-12 list-none">
-        {links.map((l) => (
-          <li key={l}>
-            <a
-              href={`#${l.toLowerCase()}`}
-              className="text-[0.7rem] tracking-[0.18em] uppercase text-grey-5 no-underline hover:text-white transition-colors duration-200"
-            >
-              {l}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <a
-        href="#contact"
-        className="text-[0.7rem] tracking-[0.18em] uppercase bg-white text-black px-6 py-2 no-underline hover:opacity-85 transition-opacity duration-200"
-      >
-        Hire Us
-      </a>
-    </nav>
+    <CardNav
+      logo="/logo-mark.svg"
+      logoAlt="Endermonks"
+      logoHref="#hero"
+      items={items}
+      baseColor="#111111"
+      menuColor="#f0ede8"
+      buttonBgColor="#f0ede8"
+      buttonTextColor="#000000"
+      ctaLabel="Hire Us"
+      ctaHref="#contact"
+      ease="power3.out"
+    />
   );
 }

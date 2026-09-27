@@ -11,7 +11,7 @@ export default function Stats() {
   const ref = useReveal();
 
   return (
-    <section className="py-20 px-[3.5%] bg-white border-b border-black/10">
+    <section id="stats" className="py-20 px-[3.5%] bg-white border-b border-black/10">
       <div
         ref={ref}
         className="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 border-l border-black/10"

@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Rubik 80s Fade';
+  src: url('/fonts/Rubik80sFade-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+.font-fade { font-family: 'Rubik 80s Fade', 'Bebas Neue', sans-serif; }
+
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; background: #000; }
+  /* Keeps anchored section tops clear of the fixed CardNav */
+  section[id] { scroll-margin-top: 5.5rem; }
   body {
     background: #000;
     color: #fff;
@@ -30,13 +39,6 @@
   to   { transform: translateX(-50%); }
 }
 .ticker-track { animation: ticker 28s linear infinite; }
-
-/* Scroll indicator */
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50%       { opacity: 1;   transform: scaleY(0.7); }
-}
-.scroll-line { animation: scrollPulse 2s ease-in-out infinite; }
 
 /* Hero grid background */
 .hero-grid {
