@@ -17,7 +17,7 @@ npm start
 npm run build
 ```
 
-## Project Structure
+## Project Structure podahuttek 
 
 ```
 src/
