@@ -1,9 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MicroSlats from './MicroSlats/MicroSlats';
-import AnimatedLogo from './AnimatedLogo';
-
-const LOGO_SIZE = 305;
-const LOGO_WIDTH = (LOGO_SIZE * 2231) / 3070;
 
 // Background ghost words: each one holds, blurs out, and the next blurs in.
 const GHOST_WORDS = ['BUILD', 'CREATE', 'IMAGINE', 'INNOVATE'];
@@ -28,7 +24,6 @@ const glitchCss = `
 export default function Hero() {
   const sectionRef = useRef(null);
   const digitalRef = useRef(null);
-  const [logoPos, setLogoPos] = useState(null);
   const [ghostIndex, setGhostIndex] = useState(0);
   const [ghostLeaving, setGhostLeaving] = useState(false);
 
@@ -47,20 +42,6 @@ export default function Hero() {
       clearInterval(cycle);
       clearTimeout(swapTimer);
     };
-  }, []);
-
-  useLayoutEffect(() => {
-    function positionLogo() {
-      if (!sectionRef.current || !digitalRef.current) return;
-      const sectionRect = sectionRef.current.getBoundingClientRect();
-      const wordRect = digitalRef.current.getBoundingClientRect();
-      const centerY = wordRect.top + wordRect.height / 2 - sectionRect.top;
-      setLogoPos({ top: centerY - LOGO_SIZE / 2 });
-    }
-    positionLogo();
-    window.addEventListener('resize', positionLogo);
-    document.fonts?.ready?.then(positionLogo);
-    return () => window.removeEventListener('resize', positionLogo);
   }, []);
 
   return (
@@ -104,22 +85,6 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* Logo — horizontal position fixed (top-right), vertical position centered on the "DIGITAL"
-          headline word, computed from its live bounding box since the word's size/position shift
-          with the responsive clamp(). */}
-      <div
-        className="absolute z-[6] pointer-events-none"
-        style={{
-          width: LOGO_WIDTH,
-          height: LOGO_SIZE,
-          right: 168,
-          top: logoPos ? logoPos.top : 282,
-          visibility: logoPos ? 'visible' : 'hidden',
-        }}
-      >
-        <AnimatedLogo size={LOGO_SIZE} />
-      </div>
-
       {/* Content */}
       <div className="relative z-10">
         <p className="flex items-center gap-4 text-[0.65rem] tracking-[0.4em] uppercase text-grey-5 mb-6 before:block before:w-10 before:h-px before:bg-grey-5">
@@ -130,7 +95,7 @@ export default function Hero() {
           className="font-bebas leading-[0.9] text-white mb-12"
           style={{ fontSize: 'clamp(4.5rem,13vw,11.5rem)', letterSpacing: '-0.01em' }}
         >
-          We Build<br />
+          Building<br />
           {/* The only place Rubik 80s Fade is used — keep it rare so it stays special */}
           <em
             ref={digitalRef}

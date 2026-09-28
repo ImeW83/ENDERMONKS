@@ -9,6 +9,13 @@
 }
 .font-fade { font-family: 'Rubik 80s Fade', 'Bebas Neue', sans-serif; }
 
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/Coolvetica%20Rg.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; background: #000; }
@@ -17,8 +24,8 @@
   body {
     background: #000;
     color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
+    font-family: 'Coolvetica', 'Inter', sans-serif;
+    font-weight: 400;
     overflow-x: hidden;
     cursor: none;
   }
@@ -65,7 +72,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: #1a1a1a;
+  background: #2a1f3d;
   width: 0;
   transition: width 0.4s ease;
   z-index: 0;
@@ -91,8 +98,8 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #555, transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, #6B46C1), transparent);
   transform: scaleX(0);
   transition: transform 0.4s;
 }

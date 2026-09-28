@@ -7,6 +7,7 @@ export default {
         bebas: ['"Bebas Neue"', 'sans-serif'],
         dm: ['"DM Serif Display"', 'serif'],
         inter: ['Inter', 'sans-serif'],
+        coolvetica: ['Coolvetica', 'sans-serif'],
       },
       colors: {
         black: '#000000',

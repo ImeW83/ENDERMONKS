@@ -1,0 +1,135 @@
+/* World Class Travels case study — blue-on-black theme. Layout/typography use Tailwind. */
+
+.wct-mono { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+
+/* The logo PNG has ~20% transparent padding; this crops to the artwork (bbox 90,114 → 400,350 of 500×500). */
+.wct-logo { display: block; overflow: hidden; aspect-ratio: 310 / 236; }
+.wct-logo img { display: block; width: 161.3%; max-width: none; margin: -36.77% 0 0 -29.03%; }
+
+.wct-sk { display: block; height: 8px; border-radius: 4px; background: #16284a; }
+
+/* Device mockups (dark UI) */
+.wct-browser {
+  background: #07101f;
+  border: 1px solid #16284a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -25px rgba(14, 150, 216, 0.22), 0 20px 50px -20px rgba(0, 0, 0, 0.9);
+}
+.wct-browser-top {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: #0b1830;
+  border-bottom: 1px solid #16284a;
+}
+.wct-browser-top i { width: 9px; height: 9px; border-radius: 50%; background: #1f3560; display: block; }
+.wct-url {
+  margin-left: 10px;
+  height: 16px;
+  flex-grow: 1;
+  max-width: 240px;
+  border-radius: 8px;
+  background: #040a16;
+  border: 1px solid #16284a;
+  font-size: 9px;
+  color: #6f86ab;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+.wct-phone {
+  background: #000;
+  border: 1px solid #16284a;
+  border-radius: 38px;
+  padding: 9px;
+  box-shadow: 0 40px 70px -24px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(139, 208, 242, 0.08);
+}
+.wct-screen { background: #07101f; border-radius: 30px; overflow: hidden; position: relative; }
+.wct-tile { background: #0b1830; border: 1px solid #16284a; }
+
+.wct-pill { font-size: 9px; font-weight: 700; padding: 3px 7px; border-radius: 999px; display: inline-block; line-height: 1.4; white-space: nowrap; }
+
+.wct-tech {
+  display: inline-block;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: #8BD0F2;
+  background: rgba(14, 150, 216, 0.08);
+  border: 1px solid rgba(139, 208, 242, 0.25);
+  padding: 4px 8px;
+}
+
+.wct-ico {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: #8BD0F2;
+  background: rgba(14, 150, 216, 0.1);
+  border: 1px solid rgba(139, 208, 242, 0.22);
+  font-size: 20px;
+}
+
+/* Hero sky */
+@keyframes wct-drift   { from { transform: translateX(-32vw); } to { transform: translateX(132vw); } }
+@keyframes wct-flyby   { from { transform: translateX(-12vw); } to { transform: translateX(112vw); } }
+@keyframes wct-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.95; } }
+@keyframes wct-pulse   { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+.wct-cl {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(139, 208, 242, 0.16), rgba(139, 208, 242, 0));
+  filter: blur(14px);
+  animation: wct-drift linear infinite;
+  will-change: transform;
+}
+.wct-star { animation: wct-twinkle 4s ease-in-out infinite; }
+.wct-fly  { animation: wct-flyby 28s linear infinite; }
+.wct-live { animation: wct-pulse 2s ease-in-out infinite; }
+
+/* Architecture connectors */
+.wct-conn { height: 44px; position: relative; display: flex; justify-content: center; }
+.wct-conn::before { content: ''; width: 0; border-left: 1px dashed rgba(139, 208, 242, 0.55); }
+.wct-conn b {
+  position: absolute; left: calc(50% + 12px); top: 13px;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 11px; font-weight: 500; color: #8BD0F2;
+}
+.wct-fan { position: relative; }
+@media (min-width: 1024px) {
+  .wct-fan { padding-top: 30px; }
+  .wct-fan::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; border-top: 1px dashed rgba(139, 208, 242, 0.55); }
+  .wct-fan > div { position: relative; }
+  .wct-fan > div::before { content: ''; position: absolute; top: -30px; left: 50%; height: 30px; border-left: 1px dashed rgba(139, 208, 242, 0.55); }
+}
+
+/* Scroll-driven flight path (only drawn at ≥1180px) */
+.wct-fp { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: visible; }
+@media (max-width: 1179px) { .wct-fp { display: none; } }
+
+/* "Visit the live site" — shine sweep only */
+.wct-live-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+  background: #0E96D8;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.wct-live-btn:hover { transform: translateY(-2px); background: #1BA8EC; }
+.wct-live-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: wct-shine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes wct-shine { 0%, 55% { left: -60%; } 100% { left: 130%; } }

@@ -132,6 +132,22 @@ const CardNav = ({
     if (isExpanded) toggleMenu();
   };
 
+  // The whole card navigates to item.href; clicks on an inner link are left to that link.
+  const handleCardClick = item => e => {
+    if (!item.href || e.target.closest('a')) return;
+    closeMenu();
+    window.location.href = item.href;
+  };
+
+  const handleCardKeyDown = item => e => {
+    if (!item.href || e.target !== e.currentTarget) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      closeMenu();
+      window.location.href = item.href;
+    }
+  };
+
   const setCardRef = i => el => {
     if (el) cardsRef.current[i] = el;
   };
@@ -202,8 +218,15 @@ const CardNav = ({
           {(items || []).map((item, idx) => (
             <div
               key={`${item.label}-${idx}`}
-              className="nav-card select-none relative flex flex-col gap-2 p-[12px_16px] rounded-[calc(0.75rem-0.2rem)] min-w-0 h-auto min-h-[60px] md:min-h-[110px]"
+              className={`nav-card select-none relative flex flex-col gap-2 p-[12px_16px] rounded-[calc(0.75rem-0.2rem)] min-w-0 h-auto min-h-[60px] md:min-h-[110px] ${
+                item.href ? 'cursor-pointer transition-opacity duration-300 hover:opacity-90' : ''
+              }`}
               ref={setCardRef(idx)}
+              onClick={handleCardClick(item)}
+              onKeyDown={handleCardKeyDown(item)}
+              role={item.href ? 'link' : undefined}
+              tabIndex={item.href && isExpanded ? 0 : -1}
+              aria-label={item.href ? item.label : undefined}
               style={{ backgroundColor: item.bgColor, color: item.textColor }}
             >
               <div className="nav-card-label font-bebas tracking-wide text-[22px] md:text-[26px]">

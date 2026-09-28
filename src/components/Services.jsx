@@ -1,12 +1,12 @@
 import { useReveal } from '../hooks/useReveal';
 
 const services = [
-  { num: '01', title: 'Web Development',        tag: 'React · Next.js · Laravel' },
-  { num: '02', title: 'Mobile Applications',    tag: 'Flutter · iOS · Android'   },
-  { num: '03', title: 'POS Systems',            tag: 'Retail · Hospitality'      },
-  { num: '04', title: 'AI Models & Integration',tag: 'Python · LangChain · OpenAI'},
-  { num: '05', title: 'LMS Development',        tag: 'E-Learning · Portals'      },
-  { num: '06', title: 'Inventory Management',   tag: 'IMS · Supply Chain'        },
+  { num: '01', title: 'Web Development',               tag: 'Websites · Web Apps · SaaS Platforms'        },
+  { num: '02', title: 'Mobile Applications',            tag: 'iOS · Android · Cross-Platform'               },
+  { num: '03', title: 'Data Science & AI',              tag: 'Analytics · Machine Learning · Automation'    },
+  { num: '04', title: 'IoT & Embedded Systems',         tag: 'Connected Devices · Sensors · Hardware Integration' },
+  { num: '05', title: 'DevOps & Cloud Infrastructure',  tag: 'CI/CD · Cloud Deployment · Scaling'            },
+  { num: '06', title: 'Custom Software Solutions',      tag: 'POS · LMS · Inventory · Bespoke Systems'       },
 ];
 
 export default function Services() {
@@ -20,15 +20,12 @@ export default function Services() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-8 mb-20">
           <div>
             <p className="flex items-center gap-4 text-[0.62rem] tracking-[0.4em] uppercase text-grey-5 mb-4 before:block before:w-8 before:h-px before:bg-grey-5">
-              What We Do
+              What We Build
             </p>
-            <h2 className="font-bebas text-white" style={{ fontSize: 'clamp(3rem,7vw,7rem)', lineHeight: 0.92 }}>
-              Our <em className="font-dm not-italic text-grey-6">Services</em>
+            <h2 className="font-bebas text-white uppercase" style={{ fontSize: 'clamp(3rem,7vw,7rem)', lineHeight: 0.92 }}>
+              <em className="font-fade not-italic text-[#FAA6FF]">Services</em>
             </h2>
           </div>
-          <p className="text-[0.9rem] leading-[1.85] text-grey-5 max-w-sm">
-            We engineer end-to-end digital solutions — from clean interfaces to intelligent systems — built for businesses that demand excellence.
-          </p>
         </div>
 
         {/* List */}

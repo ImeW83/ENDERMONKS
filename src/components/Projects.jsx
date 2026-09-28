@@ -1,58 +1,118 @@
 import { useReveal } from '../hooks/useReveal';
 
-const projects = [
-  { num: '01', cat: 'POS System', emoji: '🛒', name: 'RetailCore POS', tags: ['React', 'Node.js', 'MySQL'], bg: 'bg-dots' },
-  { num: '02', cat: 'LMS', emoji: '🎓', name: 'EduPath LMS', tags: ['Laravel', 'Vue.js'], bg: 'bg-lines' },
-  { num: '03', cat: 'AI', emoji: '🤖', name: 'IntelliBot AI', tags: ['Python', 'FastAPI'], bg: 'bg-grid' },
-  { num: '04', cat: 'Mobile App', emoji: '📱', name: 'StockSense IMS', tags: ['Flutter', 'Firebase'], bg: 'bg-cross' },
-];
-
-const bgStyles = {
-  'bg-dots': { backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)', backgroundSize: '24px 24px' },
-  'bg-lines': { backgroundImage: 'repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.03) 20px,rgba(255,255,255,0.03) 21px)' },
-  'bg-grid': { backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)', backgroundSize: '30px 30px' },
-  'bg-cross': { background: 'radial-gradient(ellipse at center,rgba(255,255,255,0.07),transparent 70%)' },
+const gridBg = {
+  backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
+  backgroundSize: '30px 30px',
 };
 
-function ProjectCard({ p, className, cardStyle }) {
+// Class strings are written out in full so Tailwind can see them.
+const themes = {
+  pink: {
+    glow: 'rgba(47,25,95,.65)',
+    tag: 'text-[#FAA6FF] border-[#FAA6FF]/40',
+    link: 'group-hover:text-[#FAA6FF] group-hover:border-[#FAA6FF]',
+    btn: 'bg-[#FAA6FF] text-black hover:bg-white',
+    dot: 'bg-black',
+    stat: 'text-[#FAA6FF]',
+  },
+  blue: {
+    glow: 'rgba(14,150,216,.28)',
+    tag: 'text-[#8BD0F2] border-[#8BD0F2]/40',
+    link: 'group-hover:text-[#8BD0F2] group-hover:border-[#8BD0F2]',
+    btn: 'bg-[#0E96D8] text-white hover:bg-[#1BA8EC]',
+    dot: 'bg-white',
+    stat: 'text-[#8BD0F2]',
+  },
+};
+
+const featured = [
+  {
+    num: '01',
+    theme: 'pink',
+    href: '/work/vcare-nursing',
+    liveUrl: 'https://www.vcareos.com',
+    cat: 'Healthcare Platform',
+    name: 'VCare Nursing',
+    brief:
+      "The complete digital operation for a Sri Lankan home-healthcare provider: a public booking site, a client portal, a mobile-first staff portal and a 32-module admin back office. It covers everything from the first enquiry to the final payslip.",
+    stats: [['4', 'Connected apps'], ['32', 'Admin modules'], ['180+', 'Permissions'], ['~150k', 'Lines of code']],
+    tags: ['React 19', 'Node.js', 'PostgreSQL', 'AWS', 'Docker'],
+  },
+  {
+    num: '02',
+    theme: 'blue',
+    reverse: true,
+    href: '/work/world-class-travels',
+    liveUrl: 'https://world-class-travels.vercel.app/',
+    cat: 'Travel & Tourism Platform',
+    name: 'World Class Travels',
+    brief:
+      "A fully digital travel agency: a cinematic booking website, a traveller portal, a B2B partner portal and a 28-module operations console. Visa files, fare holds, holiday packages and multi-currency payments, from first message to safe return.",
+    stats: [['4', 'Connected apps'], ['28', 'Ops modules'], ['45+', 'Visa destinations'], ['~110k', 'Lines of code']],
+    tags: ['React 19', 'Node.js', 'MongoDB', 'BullMQ', 'AWS'],
+  },
+];
+
+function FeaturedProject({ p }) {
+  const t = themes[p.theme];
   return (
     <div
-      className={`project-card reveal relative overflow-hidden bg-grey-2 group cursor-none ${className || ''}`}
-      style={cardStyle || {}}
+      className="project-card reveal group relative overflow-hidden bg-grey-2 mb-0.5 cursor-none"
+      style={gridBg}
     >
       <div
-        className="absolute inset-0 flex items-center justify-center text-7xl transition-transform duration-700 group-hover:scale-105"
-        style={bgStyles[p.bg] || {}}
-      >
-        {p.emoji}
-      </div>
-
-      <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
-        <span className="text-[0.6rem] tracking-[0.2em] text-grey-5">{p.num}</span>
-        <span className="text-[0.6rem] tracking-[0.15em] uppercase text-grey-5 border border-grey-3 px-2 py-1">{p.cat}</span>
-      </div>
-
-      <div
-        className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: 'linear-gradient(to top,rgba(0,0,0,0.9),transparent 60%)' }}
-      >
-        <div className="flex gap-3 flex-wrap mb-2">
-          {p.tags.map((t, i) => (
-            <span key={i} className="text-[0.6rem] tracking-[0.12em] uppercase text-grey-6">
-              {i > 0 && <span className="mr-3 text-grey-4">·</span>}
-              {t}
-            </span>
+        className="absolute inset-0 opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: `radial-gradient(900px 420px at ${p.reverse ? '15%' : '85%'} 20%, ${t.glow}, transparent 70%)` }}
+      />
+      <div className={`relative grid gap-10 p-8 md:p-12 ${p.reverse ? 'lg:grid-cols-[1fr_1.4fr]' : 'lg:grid-cols-[1.4fr_1fr]'}`}>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-[0.6rem] tracking-[0.2em] text-grey-5">{p.num}</span>
+            <span className={`text-[0.6rem] tracking-[0.15em] uppercase border px-2 py-1 ${t.tag}`}>Featured</span>
+            <span className="text-[0.6rem] tracking-[0.15em] uppercase text-grey-5 border border-grey-3 px-2 py-1">{p.cat}</span>
+          </div>
+          <h3 className="font-bebas text-white uppercase tracking-[0.02em]" style={{ fontSize: 'clamp(2.6rem,6vw,5.5rem)', lineHeight: 0.92 }}>
+            {p.name}
+          </h3>
+          <p className="text-[1rem] leading-relaxed text-grey-6 max-w-[620px]">{p.brief}</p>
+          <div className="flex gap-3 flex-wrap">
+            {p.tags.map((tag, i) => (
+              <span key={tag} className="text-[0.6rem] tracking-[0.12em] uppercase text-grey-6">
+                {i > 0 && <span className="mr-3 text-grey-4">·</span>}
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+            {/* The ::after overlay stretches this link across the whole card */}
+            <a
+              href={p.href}
+              className={`no-underline text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 w-fit transition-colors duration-200 after:absolute after:inset-0 after:content-[''] ${t.link}`}
+            >
+              Read the Case Study ↗
+            </a>
+            <a
+              href={p.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`relative z-10 no-underline inline-flex items-center gap-2.5 text-[0.68rem] tracking-[0.18em] uppercase px-5 py-3 transition-colors duration-200 ${t.btn}`}
+            >
+              <span aria-hidden="true" className="relative flex w-2 h-2">
+                <span className={`absolute inset-0 rounded-full animate-ping ${t.dot}`} />
+                <span className={`relative w-2 h-2 rounded-full ${t.dot}`} />
+              </span>
+              Visit Live Site ↗
+            </a>
+          </div>
+        </div>
+        <div className={`grid grid-cols-2 gap-px bg-grey-3 border border-grey-3 self-end ${p.reverse ? 'lg:order-first' : ''}`}>
+          {p.stats.map(([n, label]) => (
+            <div key={label} className="bg-grey-1/90 px-6 py-7">
+              <div className={`font-bebas leading-none ${t.stat}`} style={{ fontSize: 'clamp(2.4rem,4vw,3.4rem)' }}>{n}</div>
+              <div className="mt-2 text-[0.62rem] tracking-[0.15em] uppercase text-grey-5">{label}</div>
+            </div>
           ))}
         </div>
-        <div
-          className="font-bebas text-white tracking-[0.04em] mb-3"
-          style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)' }}
-        >
-          {p.name}
-        </div>
-        <span className="text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 w-fit">
-          View Project ↗
-        </span>
       </div>
     </div>
   );
@@ -68,10 +128,10 @@ export default function Projects() {
         <div className="flex items-end justify-between mb-16 gap-4">
           <div>
             <p className="flex items-center gap-4 text-[0.62rem] tracking-[0.4em] uppercase text-grey-5 mb-4 before:block before:w-8 before:h-px before:bg-grey-5">
-              Selected Work
+              Proof of Concept
             </p>
-            <h2 className="font-bebas text-white" style={{ fontSize: 'clamp(3rem,7vw,7rem)', lineHeight: 0.92 }}>
-              Our <em className="font-dm not-italic text-grey-6">Projects</em>
+            <h2 className="font-bebas text-white uppercase" style={{ fontSize: 'clamp(3rem,7vw,7rem)', lineHeight: 0.92 }}>
+              <em className="font-fade not-italic text-[#FAA6FF]">Projects</em>
             </h2>
           </div>
           <span className="text-[0.7rem] tracking-[0.2em] uppercase text-grey-5 border-b border-grey-4 pb-0.5 whitespace-nowrap">
@@ -79,31 +139,21 @@ export default function Projects() {
           </span>
         </div>
 
-        <div ref={ref} className="flex flex-col lg:flex-row gap-0.5 mb-0.5">
-          <ProjectCard p={projects[0]} className="flex-[5]" cardStyle={{ aspectRatio: '16/10' }} />
-          <div className="flex flex-col gap-0.5 flex-[3]">
-            <ProjectCard p={projects[1]} cardStyle={{ aspectRatio: '4/3' }} />
-            <ProjectCard p={projects[2]} cardStyle={{ aspectRatio: '4/3' }} />
+        <div ref={ref}>
+        {featured.map((p) => <FeaturedProject key={p.href} p={p} />)}
+
+        <div
+          className="reveal flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-grey-3 px-8 py-7"
+          style={{ backgroundImage: 'radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px)', backgroundSize: '24px 24px' }}
+        >
+          <div>
+            <div className="font-bebas text-[1.2rem] tracking-[0.2em] text-grey-5 mb-1">Your Project</div>
+            <div className="text-[0.7rem] tracking-[0.15em] uppercase text-grey-4">Could be here</div>
           </div>
+          <a href="#contact" className="text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 no-underline w-fit">
+            Start a Project ↗
+          </a>
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-0.5">
-          <ProjectCard p={projects[3]} className="flex-1" cardStyle={{ aspectRatio: '4/3' }} />
-
-          <div
-            className="flex-1 relative bg-grey-3 flex items-center justify-center cursor-none"
-            style={{ aspectRatio: '4/3', backgroundImage: 'radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px)', backgroundSize: '24px 24px' }}
-          >
-            <div className="text-center">
-              <div className="font-bebas text-[1.2rem] tracking-[0.2em] text-grey-5 mb-1">Your Project</div>
-              <div className="text-[0.7rem] tracking-[0.15em] uppercase text-grey-4">Could be here</div>
-            </div>
-            <div className="absolute bottom-8 left-8">
-              <a href="#contact" className="text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5 no-underline">
-                Start a Project ↗
-              </a>
-            </div>
-          </div>
         </div>
 
       </div>

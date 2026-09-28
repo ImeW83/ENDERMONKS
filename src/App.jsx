@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import LoadingScreen from './components/LoadingScreen';
 import Cursor   from './components/Cursor';
 import Navbar   from './components/Navbar';
 import Hero     from './components/Hero';
@@ -10,6 +11,15 @@ import Team     from './components/Team';
 import Stack    from './components/Stack';
 import Contact  from './components/Contact';
 import Footer   from './components/Footer';
+import VCareCaseStudy from './components/VCare/VCareCaseStudy';
+import WorldClassCaseStudy from './components/WorldClass/WorldClassCaseStudy';
+
+// Minimal path routing — case-study pages live at their own URL; everything else is the one-page site.
+const CASE_STUDIES = {
+  '/work/vcare-nursing': VCareCaseStudy,
+  '/work/world-class-travels': WorldClassCaseStudy,
+};
+const path = window.location.pathname.replace(/\/+$/, '');
 
 export default function App() {
   useEffect(() => {
@@ -23,19 +33,30 @@ export default function App() {
     document.fonts?.ready?.then(scrollToHash);
   }, []);
 
+  const CaseStudy = CASE_STUDIES[path];
+  if (CaseStudy) {
+    return (
+      <LoadingScreen>
+        <Cursor />
+        <Navbar base="/" />
+        <CaseStudy />
+        <Footer base="/" />
+      </LoadingScreen>
+    );
+  }
+
   return (
-    <>
+    <LoadingScreen>
       <Cursor />
       <Navbar />
       <Hero />
       <Ticker />
       <Services />
       <Projects />
-      <Stats />
       <Team />
       <Stack />
       <Contact />
       <Footer />
-    </>
+    </LoadingScreen>
   );
 }

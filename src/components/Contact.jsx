@@ -25,7 +25,7 @@ export default function Contact() {
           Get In Touch
         </p>
         <h2 className="font-bebas text-white mb-16" style={{ fontSize: 'clamp(3rem,7vw,7rem)', lineHeight: 0.92 }}>
-          Start a <em className="font-dm not-italic text-grey-6">Project</em>
+          Start a <em className="font-fade not-italic text-[#FAA6FF] uppercase">Project</em>
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-24 items-start">

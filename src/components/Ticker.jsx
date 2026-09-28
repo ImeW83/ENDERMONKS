@@ -1,6 +1,6 @@
 const items = [
-  'Web Development', 'Mobile Applications', 'POS Systems',
-  'AI Models', 'LMS Development', 'Inventory Management',
+  'Web Development', 'Mobile Applications', 'Data Science & AI',
+  'IoT & Embedded Systems', 'DevOps & Cloud Infrastructure', 'Custom Software Solutions',
 ];
 
 export default function Ticker() {
