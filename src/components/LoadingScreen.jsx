@@ -163,8 +163,10 @@ export default function LoadingScreen({ children, progress, duration = 4.5, segm
 
   // At 100%: hold a beat, glitch out, then remove the loader.
   const complete = shown >= 100;
+  const startedRef = useRef(false);
   useEffect(() => {
-    if (!complete || phase !== 'loading') return undefined;
+    if (!complete || startedRef.current) return undefined;
+    startedRef.current = true;
     const reduced = prefersReducedMotion();
     let t2;
     const t1 = setTimeout(() => {
@@ -175,7 +177,7 @@ export default function LoadingScreen({ children, progress, duration = 4.5, segm
       }, reduced ? 320 : GLITCH_MS);
     }, HOLD_MS);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [complete, phase]);
+  }, [complete]);
 
   // Stop the page scrolling behind the loader.
   useEffect(() => {
