@@ -23,6 +23,22 @@ const themes = {
     dot: 'bg-white',
     stat: 'text-[#8BD0F2]',
   },
+  mono: {
+    glow: 'rgba(255,255,255,.07)',
+    tag: 'text-white border-white/40',
+    link: 'group-hover:text-grey-6 group-hover:border-grey-6',
+    btn: 'bg-off-white text-black hover:bg-white',
+    dot: 'bg-black',
+    stat: 'text-white',
+  },
+  orange: {
+    glow: 'rgba(255,106,19,.28)',
+    tag: 'text-[#FF8A3D] border-[#FF8A3D]/40',
+    link: 'group-hover:text-[#FF8A3D] group-hover:border-[#FF8A3D]',
+    btn: 'bg-[#FF6A13] text-black hover:bg-[#FF8A3D]',
+    dot: 'bg-black',
+    stat: 'text-[#FF8A3D]',
+  },
 };
 
 const featured = [
@@ -50,6 +66,30 @@ const featured = [
       "A fully digital travel agency: a cinematic booking website, a traveller portal, a B2B partner portal and a 28-module operations console. Visa files, fare holds, holiday packages and multi-currency payments, from first message to safe return.",
     stats: [['4', 'Connected apps'], ['28', 'Ops modules'], ['45+', 'Visa destinations'], ['~110k', 'Lines of code']],
     tags: ['React 19', 'Node.js', 'MongoDB', 'BullMQ', 'AWS'],
+  },
+  {
+    num: '03',
+    theme: 'mono',
+    href: '/work/cheapass',
+    liveUrl: 'https://cheapass.app',
+    cat: 'Gig Economy · Consumer SaaS',
+    name: 'CheapAss',
+    brief:
+      "The delivery driver's secret weapon: a community platform where drivers log anonymous Delivery Notes (tips, addresses, platforms and issues) so others can dodge bad drops. One Flutter codebase runs as a web app, a PWA and a mobile app, with a Stripe-powered freemium model.",
+    stats: [['3', 'Surfaces, one codebase'], ['5+', 'Delivery platforms'], ['$14.95', 'For 100 notes'], ['PWA', 'iOS & Android']],
+    tags: ['Flutter', 'Firebase', 'Stripe', 'Google Maps', 'PWA'],
+  },
+  {
+    num: '04',
+    theme: 'orange',
+    reverse: true,
+    href: '/work/honeylight',
+    cat: 'Cybersecurity · Research Platform',
+    name: 'Honeylight',
+    brief:
+      "A honeypot that doesn't just detect attacks, it physically shows you one. A Cowrie SSH honeypot on a Raspberry Pi feeds a machine learning detection engine and a live dashboard, and an Arduino-driven set of lights turns off, dims or flickers depending on what the attacker is doing.",
+    stats: [['3', 'Attack types classified'], ['89%', 'Random Forest accuracy'], ['3', 'Physical lights'], ['2', 'Detection layers']],
+    tags: ['Python', 'scikit-learn', 'Cowrie', 'Raspberry Pi', 'Arduino'],
   },
 ];
 
@@ -91,18 +131,20 @@ function FeaturedProject({ p }) {
             >
               Read the Case Study ↗
             </a>
-            <a
-              href={p.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`relative z-10 no-underline inline-flex items-center gap-2.5 text-[0.68rem] tracking-[0.18em] uppercase px-5 py-3 transition-colors duration-200 ${t.btn}`}
-            >
-              <span aria-hidden="true" className="relative flex w-2 h-2">
-                <span className={`absolute inset-0 rounded-full animate-ping ${t.dot}`} />
-                <span className={`relative w-2 h-2 rounded-full ${t.dot}`} />
-              </span>
-              Visit Live Site ↗
-            </a>
+            {p.liveUrl && (
+              <a
+                href={p.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`relative z-10 no-underline inline-flex items-center gap-2.5 text-[0.68rem] tracking-[0.18em] uppercase px-5 py-3 transition-colors duration-200 ${t.btn}`}
+              >
+                <span aria-hidden="true" className="relative flex w-2 h-2">
+                  <span className={`absolute inset-0 rounded-full animate-ping ${t.dot}`} />
+                  <span className={`relative w-2 h-2 rounded-full ${t.dot}`} />
+                </span>
+                Visit Live Site ↗
+              </a>
+            )}
           </div>
         </div>
         <div className={`grid grid-cols-2 gap-px bg-grey-3 border border-grey-3 self-end ${p.reverse ? 'lg:order-first' : ''}`}>

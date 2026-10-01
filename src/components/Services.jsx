@@ -47,9 +47,7 @@ export default function Services() {
               <div className="flex items-center gap-8 z-10">
                 <span className="hidden sm:block text-[0.65rem] tracking-[0.15em] uppercase text-grey-5 border border-grey-3 px-3 py-1">
                   {s.tag}
-                </span>
-                <span className="text-grey-5 text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
-              </div>
+                </span>              </div>
             </div>
           ))}
         </div>

@@ -2,60 +2,43 @@ import CardNav from './CardNav/CardNav';
 
 const card = { bgColor: '#1a1a1a', textColor: '#f0ede8' };
 
-// Each card links to its section as a whole; the sub-links mirror what's actually in that section.
+// Each card links to its section as a whole; the sub-link is that section's eyebrow label.
 const items = [
   {
     ...card,
     label: 'Services',
     href: '#services',
-    links: [
-      { label: 'Web Development', href: '#services', ariaLabel: 'Web development services' },
-      { label: 'Mobile Applications', href: '#services', ariaLabel: 'Mobile application services' },
-      { label: 'Data Science & AI', href: '#services', ariaLabel: 'Data science and AI services' },
-    ],
+    links: [{ label: 'What We Build', href: '#services', ariaLabel: 'What We Build' }],
   },
   {
     ...card,
     label: 'Work',
     href: '#work',
-    links: [
-      { label: 'VCare Nursing', href: '/work/vcare-nursing', ariaLabel: 'VCare Nursing case study' },
-      { label: 'All projects', href: '#work', ariaLabel: 'All projects' },
-    ],
+    links: [{ label: 'Proof of Concept', href: '#work', ariaLabel: 'Proof of Concept' }],
   },
   {
     ...card,
     label: 'Team',
     href: '#team',
-    links: [
-      { label: 'Imeth — The Coordinator', href: '#team', ariaLabel: 'Imeth, the coordinator' },
-      { label: 'Heshal — The Brain', href: '#team', ariaLabel: 'Heshal, the brain' },
-      { label: 'Naveed — The Builder', href: '#team', ariaLabel: 'Naveed, the builder' },
-    ],
+    links: [{ label: 'The Monks', href: '#team', ariaLabel: 'The Monks' }],
   },
   {
     ...card,
     label: 'Stack',
     href: '#stack',
-    links: [
-      { label: 'Web · Mobile · AI', href: '#stack', ariaLabel: 'Web, mobile and AI stack' },
-      { label: 'IoT · DevOps & Cloud', href: '#stack', ariaLabel: 'IoT, DevOps and cloud stack' },
-    ],
+    links: [{ label: 'Arsenal', href: '#stack', ariaLabel: 'Arsenal' }],
   },
   {
     ...card,
     label: 'Contact',
     href: '#contact',
-    links: [
-      { label: 'Start a project', href: '#contact', ariaLabel: 'Start a project' },
-      { label: 'hello@endermonks.com', href: 'mailto:hello@endermonks.com', ariaLabel: 'Email Endermonks' },
-    ],
+    links: [{ label: 'Get In Touch', href: '#contact', ariaLabel: 'Get In Touch' }],
   },
 ];
 
 // `base` prefixes the section anchors so the nav also works from sub-pages (e.g. '/').
 export default function Navbar({ base = '' }) {
-  // Only in-page anchors need the prefix; real paths and mailto links are left as-is.
+  // Only in-page anchors need the prefix.
   const withBase = (href) => (href.startsWith('#') ? base + href : href);
   const navItems = items.map((it) => ({
     ...it,

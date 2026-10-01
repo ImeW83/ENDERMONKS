@@ -13,11 +13,15 @@ import Contact  from './components/Contact';
 import Footer   from './components/Footer';
 import VCareCaseStudy from './components/VCare/VCareCaseStudy';
 import WorldClassCaseStudy from './components/WorldClass/WorldClassCaseStudy';
+import CheapAssCaseStudy from './components/CheapAss/CheapAssCaseStudy';
+import HoneylightCaseStudy from './components/Honeylight/HoneylightCaseStudy';
 
 // Minimal path routing — case-study pages live at their own URL; everything else is the one-page site.
 const CASE_STUDIES = {
   '/work/vcare-nursing': VCareCaseStudy,
   '/work/world-class-travels': WorldClassCaseStudy,
+  '/work/cheapass': CheapAssCaseStudy,
+  '/work/honeylight': HoneylightCaseStudy,
 };
 const path = window.location.pathname.replace(/\/+$/, '');
 

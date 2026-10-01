@@ -12,22 +12,19 @@ const members = [
   {
     name:    'Imeth',
     role:    'The Coordinator',
-    bio:     'The coordinator of Endermonks. Imeth keeps the group aligned and every project accountable to its deadline, bringing a security-first mindset to everything the team ships — equal parts strategist, guardian, and builder.',
-    skills:  ['Cybersecurity', 'Project Management', 'Software Development'],
+    bio:     'Imeth handles client conversations, keeps projects on schedule and reminds grown men to check their messages. He also brings the cybersecurity expertise that keeps your website from becoming a side hustle for some scammer. In his own time, he’s usually tinkering with decoy systems that lure hackers in, or chasing a personal best at the gym.',
     color:   '#6B46C1',
   },
   {
     name:    'Heshal',
     role:    'The Brain',
-    bio:     "The one the team turns to when a problem gets genuinely hard. Fluent across data science, machine learning, and IoT, and just as comfortable architecting the cloud infrastructure and CI/CD pipelines that keep it all running — Heshal is the one who handles the most complex tasks.",
-    skills:  ['Data Science', 'Machine Learning', 'IoT', 'DevOps & Cloud Infrastructure'],
+    bio:     "Heshal has 24 hours in his day(allegedly). He leads development, plans how our software fits together, writes code and handles cloud infrastructure and deployments. Ask him something outside tech and you can find yourself discussing free will when you only meant to make small talk. Apparently he’s found a loophole in the laws of physics and decided to keep it to himself.",
     color:   '#6B46C1',
   },
   {
     name:    'Naveed',
     role:    'The Builder',
-    bio:     "Naveed turns ideas into the apps people actually carry in their pocket. His focus is mobile, but his range runs the full width of computer science — a versatile engineer who's just as sharp outside his lane as in it.",
-    skills:  ['Mobile Development', 'Full Stack Development', 'Software Engineering'],
+    bio:     "Naveed is a skilled mobile developer who also spends hours testing mobile games for companies that don’t know he exists. He builds our apps, keeps the team’s spirits high and comes through when things get hectic, despite the obvious demands of his unpaid gaming career.",
     color:   '#6B46C1',
   },
 ];
@@ -61,13 +58,6 @@ export default function Team() {
                 {m.role}
               </div>
               <p className="text-[0.84rem] leading-[1.8] text-grey-5 mb-7">{m.bio}</p>
-              <div className="flex flex-wrap gap-2">
-                {m.skills.map((sk) => (
-                  <span key={sk} className="text-[0.62rem] tracking-[0.12em] uppercase text-grey-6 border border-grey-3 px-3 py-1 hover:border-[var(--accent)] transition-colors duration-200">
-                    {sk}
-                  </span>
-                ))}
-              </div>
             </SpotlightCard>
           ))}
         </div>
