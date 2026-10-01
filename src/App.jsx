@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
-import Cursor   from './components/Cursor';
+import GlitchCursor from './components/GlitchCursor';
 import Navbar   from './components/Navbar';
 import Hero     from './components/Hero';
 import Ticker   from './components/Ticker';
@@ -15,9 +15,11 @@ import VCareCaseStudy from './components/VCare/VCareCaseStudy';
 import WorldClassCaseStudy from './components/WorldClass/WorldClassCaseStudy';
 import CheapAssCaseStudy from './components/CheapAss/CheapAssCaseStudy';
 import HoneylightCaseStudy from './components/Honeylight/HoneylightCaseStudy';
+import PortfolioPage from './components/Portfolio/PortfolioPage';
 
-// Minimal path routing — case-study pages live at their own URL; everything else is the one-page site.
+// Minimal path routing — the portfolio and case-study pages live at their own URL; everything else is the one-page site.
 const CASE_STUDIES = {
+  '/work': PortfolioPage,
   '/work/vcare-nursing': VCareCaseStudy,
   '/work/world-class-travels': WorldClassCaseStudy,
   '/work/cheapass': CheapAssCaseStudy,
@@ -41,7 +43,7 @@ export default function App() {
   if (CaseStudy) {
     return (
       <LoadingScreen>
-        <Cursor />
+        <GlitchCursor />
         <Navbar base="/" />
         <CaseStudy />
         <Footer base="/" />
@@ -51,7 +53,7 @@ export default function App() {
 
   return (
     <LoadingScreen>
-      <Cursor />
+      <GlitchCursor />
       <Navbar />
       <Hero />
       <Ticker />
