@@ -15,7 +15,7 @@ export default function Footer({ base = '' }) {
               Endermonks
             </span>
             <p className="text-[0.8rem] leading-[1.8] text-grey-5 max-w-sm">
-              A small studio building web, mobile and AI products. No agencies, no middlemen — you talk directly to the people building your product.
+            Building Digital Empires.
             </p>
           </div>
 
