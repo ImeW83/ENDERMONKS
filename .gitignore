@@ -21,3 +21,26 @@ yarn-error.log*
 # misc
 .DS_Store
 .vscode/
+.vercel
+.env*.local
+
+# env (any variant, keep examples)
+.env.*
+!.env.example
+
+# logs
+*.log
+logs/
+
+# tooling / editor
+.claude/
+graphify-out/
+*.tsbuildinfo
+*.pem
+Thumbs.db
+
+# build / cache
+/build
+/coverage
+.cache/
+.eslintcache

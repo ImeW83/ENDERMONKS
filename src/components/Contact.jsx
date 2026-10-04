@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const socials = [
-  { label: 'hello@endermonks.com', href: 'mailto:hello@endermonks.com' },
+  { label: 'services@endermonks.com', href: 'mailto:services@endermonks.com' },
   { label: 'LinkedIn',             href: '#' },
   { label: 'GitHub',               href: '#' },
   { label: 'WhatsApp',             href: '#' },
@@ -15,7 +15,26 @@ const services = [
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
 
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+
   const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setForm({ name: '', email: '', service: '', message: '' });
+      setStatus('sent');
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <section id="contact" className="py-28 px-[3.5%] border-b border-grey-3 bg-black">
@@ -53,7 +72,17 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-0 border-t border-grey-3">
+          <form onSubmit={submit} className="flex flex-col gap-0 border-t border-grey-3">
+
+            <input
+              type="text"
+              name="company"
+              value={form.company || ''}
+              onChange={handle}
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+            />
 
             {[
               { label: 'Your Name',      name: 'name',    type: 'text',  placeholder: 'John Doe'          },
@@ -66,6 +95,7 @@ export default function Contact() {
                 <input
                   type={f.type}
                   name={f.name}
+                  required
                   value={form[f.name]}
                   onChange={handle}
                   placeholder={f.placeholder}
@@ -98,6 +128,7 @@ export default function Contact() {
               </label>
               <textarea
                 name="message"
+                required
                 value={form.message}
                 onChange={handle}
                 placeholder="Tell us what you're building..."
@@ -108,10 +139,19 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-10 self-start bg-white text-black text-[0.72rem] tracking-[0.22em] uppercase px-10 py-5 border-none hover:opacity-85 transition-opacity cursor-none"
+              disabled={status === 'sending'}
+              className="mt-10 self-start bg-white text-black text-[0.72rem] tracking-[0.22em] uppercase px-10 py-5 border-none hover:opacity-85 transition-opacity cursor-none disabled:opacity-50"
             >
-              Send Message →
+              {status === 'sending' ? 'Sending...' : 'Send Message →'}
             </button>
+            {status === 'sent' && (
+              <p className="mt-4 text-[0.75rem] text-[#FAA6FF]">Thanks! We'll reply within 24 hours.</p>
+            )}
+            {status === 'error' && (
+              <p className="mt-4 text-[0.75rem] text-red-400">
+                Something went wrong. Please email services@endermonks.com.
+              </p>
+            )}
           </form>
         </div>
       </div>

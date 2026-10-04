@@ -109,7 +109,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-[0.9rem] leading-[1.8] text-grey-5 max-w-sm">
-          Insert Tagline
+  
         </p>
       </div>
     </section>
