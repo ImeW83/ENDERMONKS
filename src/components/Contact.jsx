@@ -1,19 +1,11 @@
 import { useState } from 'react';
+import { socials } from './socials';
+import { services as serviceList } from './Services';
 
-const socials = [
-  { label: 'services@endermonks.com', href: 'mailto:services@endermonks.com' },
-  { label: 'LinkedIn',             href: '#' },
-  { label: 'GitHub',               href: '#' },
-  { label: 'WhatsApp',             href: '#' },
-];
-
-const services = [
-  'Web Development', 'Mobile Application', 'POS System',
-  'AI Integration', 'LMS Development', 'Inventory Management',
-];
+const services = serviceList.map((s) => s.title);
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
 
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
@@ -29,7 +21,7 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error();
-      setForm({ name: '', email: '', service: '', message: '' });
+      setForm({ name: '', email: '', phone: '', service: '', message: '' });
       setStatus('sent');
     } catch {
       setStatus('error');
@@ -55,7 +47,7 @@ export default function Contact() {
               Let's build<br />something<br />legendary.
             </p>
             <p className="text-[0.82rem] leading-[1.8] text-grey-5 mb-12">
-              Have a vision? Tell us about your project and we'll come back to you within 24 hours. No agencies, no middlemen — you talk directly to the people building your product.
+              Tell us about your project and we'll come back to you within 24 hours. 
             </p>
             <div className="flex flex-col gap-4">
               {socials.map((s) => (
@@ -65,6 +57,7 @@ export default function Contact() {
                   className="flex items-center gap-6 text-[0.72rem] tracking-[0.18em] uppercase text-grey-5 no-underline hover:text-white transition-colors duration-200 group"
                 >
                   <span className="block w-6 h-px bg-grey-5 group-hover:w-10 group-hover:bg-white transition-all duration-300" />
+                  {s.icon}
                   {s.label}
                 </a>
               ))}
@@ -85,8 +78,9 @@ export default function Contact() {
             />
 
             {[
-              { label: 'Your Name',      name: 'name',    type: 'text',  placeholder: 'John Doe'          },
-              { label: 'Email Address',  name: 'email',   type: 'email', placeholder: 'john@company.com'  },
+              { label: 'Your Name',      name: 'name',    type: 'text',  placeholder: 'Steve Notch'       },
+              { label: 'Email Address',  name: 'email',   type: 'email', placeholder: 'steve@gmail.com'   },
+              { label: 'Phone Number',   name: 'phone',   type: 'tel',   placeholder: '+94 77 123 4567'   },
             ].map((f) => (
               <div key={f.name} className="form-field border-b border-grey-3 pb-0">
                 <label className="block text-[0.6rem] tracking-[0.3em] uppercase text-grey-5 pt-5 pb-1">

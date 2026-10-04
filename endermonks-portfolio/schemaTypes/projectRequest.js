@@ -7,6 +7,7 @@ export default defineType({
   fields: [
     defineField({name: 'name', type: 'string', readOnly: true}),
     defineField({name: 'email', type: 'string', readOnly: true}),
+    defineField({name: 'phone', type: 'string', readOnly: true}),
     defineField({name: 'service', type: 'string', readOnly: true}),
     defineField({name: 'message', type: 'text', readOnly: true}),
     defineField({name: 'submittedAt', type: 'datetime', readOnly: true}),

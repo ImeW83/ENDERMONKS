@@ -1,6 +1,6 @@
 import { useReveal } from '../hooks/useReveal';
 
-const services = [
+export const services = [
   { num: '01', title: 'Web Development',               tag: 'Websites · Web Apps · SaaS Platforms'        },
   { num: '02', title: 'Mobile Applications',            tag: 'iOS · Android · Cross-Platform'               },
   { num: '03', title: 'Data Science & AI',              tag: 'Analytics · Machine Learning · Automation'    },
