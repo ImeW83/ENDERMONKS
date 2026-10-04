@@ -21,6 +21,9 @@ yarn-error.log*
 # misc
 .DS_Store
 .vscode/
+<<<<<<< HEAD
+
+=======
 .vercel
 .env*.local
 
@@ -44,3 +47,4 @@ Thumbs.db
 /coverage
 .cache/
 .eslintcache
+>>>>>>> 01386a677ba3f2320dccf3a97140e673eff7413b
