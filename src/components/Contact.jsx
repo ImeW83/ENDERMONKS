@@ -1,21 +1,32 @@
 import { useState } from 'react';
+import { socials } from './socials';
+import { services as serviceList } from './Services';
 
-const socials = [
-  { label: 'hello@endermonks.com', href: 'mailto:hello@endermonks.com' },
-  { label: 'LinkedIn',             href: '#' },
-  { label: 'GitHub',               href: '#' },
-  { label: 'WhatsApp',             href: '#' },
-];
-
-const services = [
-  'Web Development', 'Mobile Application', 'POS System',
-  'AI Integration', 'LMS Development', 'Inventory Management',
-];
+const services = serviceList.map((s) => s.title);
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
+
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setForm({ name: '', email: '', phone: '', service: '', message: '' });
+      setStatus('sent');
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <section id="contact" className="py-28 px-[3.5%] border-b border-grey-3 bg-black">
@@ -36,7 +47,7 @@ export default function Contact() {
               Let's build<br />something<br />legendary.
             </p>
             <p className="text-[0.82rem] leading-[1.8] text-grey-5 mb-12">
-              Have a vision? Tell us about your project and we'll come back to you within 24 hours. No agencies, no middlemen — you talk directly to the people building your product.
+              Tell us about your project and we'll come back to you within 24 hours. 
             </p>
             <div className="flex flex-col gap-4">
               {socials.map((s) => (
@@ -46,6 +57,7 @@ export default function Contact() {
                   className="flex items-center gap-6 text-[0.72rem] tracking-[0.18em] uppercase text-grey-5 no-underline hover:text-white transition-colors duration-200 group"
                 >
                   <span className="block w-6 h-px bg-grey-5 group-hover:w-10 group-hover:bg-white transition-all duration-300" />
+                  {s.icon}
                   {s.label}
                 </a>
               ))}
@@ -53,11 +65,22 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-0 border-t border-grey-3">
+          <form onSubmit={submit} className="flex flex-col gap-0 border-t border-grey-3">
+
+            <input
+              type="text"
+              name="company"
+              value={form.company || ''}
+              onChange={handle}
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+            />
 
             {[
-              { label: 'Your Name',      name: 'name',    type: 'text',  placeholder: 'John Doe'          },
-              { label: 'Email Address',  name: 'email',   type: 'email', placeholder: 'john@company.com'  },
+              { label: 'Your Name',      name: 'name',    type: 'text',  placeholder: 'Steve Notch'       },
+              { label: 'Email Address',  name: 'email',   type: 'email', placeholder: 'steve@gmail.com'   },
+              { label: 'Phone Number',   name: 'phone',   type: 'tel',   placeholder: '+94 77 123 4567'   },
             ].map((f) => (
               <div key={f.name} className="form-field border-b border-grey-3 pb-0">
                 <label className="block text-[0.6rem] tracking-[0.3em] uppercase text-grey-5 pt-5 pb-1">
@@ -66,6 +89,7 @@ export default function Contact() {
                 <input
                   type={f.type}
                   name={f.name}
+                  required
                   value={form[f.name]}
                   onChange={handle}
                   placeholder={f.placeholder}
@@ -98,6 +122,7 @@ export default function Contact() {
               </label>
               <textarea
                 name="message"
+                required
                 value={form.message}
                 onChange={handle}
                 placeholder="Tell us what you're building..."
@@ -108,10 +133,19 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-10 self-start bg-white text-black text-[0.72rem] tracking-[0.22em] uppercase px-10 py-5 border-none hover:opacity-85 transition-opacity cursor-none"
+              disabled={status === 'sending'}
+              className="mt-10 self-start bg-white text-black text-[0.72rem] tracking-[0.22em] uppercase px-10 py-5 border-none hover:opacity-85 transition-opacity cursor-none disabled:opacity-50"
             >
-              Send Message →
+              {status === 'sending' ? 'Sending...' : 'Send Message →'}
             </button>
+            {status === 'sent' && (
+              <p className="mt-4 text-[0.75rem] text-[#FAA6FF]">Thanks! We'll reply within 24 hours.</p>
+            )}
+            {status === 'error' && (
+              <p className="mt-4 text-[0.75rem] text-red-400">
+                Something went wrong. Please email services@endermonks.com.
+              </p>
+            )}
           </form>
         </div>
       </div>

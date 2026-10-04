@@ -8,7 +8,7 @@ import { useCountUp } from '../../hooks/useCountUp';
 import SpotlightCard from '../SpotlightCard/SpotlightCard';
 import './cheapass.css';
 
-const LIVE_URL = 'https://cheapass.app';
+const COMPLETED = 'September 2026';
 const LOGO = '/logo/CheapAss%20Logo.jpeg';
 
 const STATS = [
@@ -79,10 +79,10 @@ const QUALITY = [
 ];
 
 const OUTCOMES = [
-  { title: 'Drivers have a searchable delivery history', text: "Where there was a noisy group chat, now there's a structured, queryable database of real delivery experiences tied to real addresses." },
-  { title: 'A working freemium funnel', text: 'The 3-day, no-card trial removes friction at signup. Drivers who find two or three notes that save them a bad delivery have already covered the $14.95 cost, so the conversion case writes itself.' },
-  { title: 'Cross-platform from day one', text: 'A single Flutter codebase runs as a web app, a PWA on phones, and a potential native app store release, without maintaining separate codebases for iOS, Android, and web.' },
-  { title: 'Zero-server-cost baseline', text: "Firebase's free tier and serverless Cloud Functions mean the platform costs effectively nothing until it scales past hundreds of daily active users, letting the product validate product-market fit before infrastructure spend." },
+  { title: 'A searchable delivery history', text: 'Where there was a noisy group chat, we delivered a structured, queryable database of delivery experiences tied to real addresses.' },
+  { title: 'A complete freemium funnel', text: 'The 3-day, no-card trial removes friction at signup. Drivers who find two or three notes that save them a bad delivery have already covered the $14.95 cost, so the conversion case writes itself.' },
+  { title: 'Cross-platform from day one', text: 'A single Flutter codebase ships as a web app, a PWA on phones, and a native build ready for app store release, without maintaining separate codebases for iOS, Android, and web.' },
+  { title: 'A lean, low-cost foundation', text: "Firebase's free tier and serverless Cloud Functions mean the platform costs effectively nothing to run until it reaches hundreds of daily active users, so the client can validate the idea before any infrastructure spend." },
 ];
 
 const PLANS = [
@@ -98,7 +98,7 @@ const PLANS = [
 
 function Eyebrow({ children }) {
   return (
-    <p className="flex items-center gap-4 text-[0.62rem] tracking-[0.4em] uppercase text-grey-5 mb-4 before:block before:w-8 before:h-px before:bg-grey-5">
+    <p className="flex items-center gap-4 text-[0.62rem] tracking-[0.4em] uppercase text-grey-5 mb-4 before:block before:w-8 before:h-px before:bg-[#CCFF00]">
       {children}
     </p>
   );
@@ -114,12 +114,12 @@ function Heading({ id, children, className = '' }) {
 
 // Grey continuation of a heading, echoing the original design's two-tone titles.
 const Muted = ({ children }) => <span className="text-grey-5">{children}</span>;
-const Accent = ({ children }) => <em className="font-fade not-italic text-off-white">{children}</em>;
+const Accent = ({ children }) => <em className="font-fade not-italic text-[#CCFF00]">{children}</em>;
 
-function Point({ children, ok = true }) {
+function Point({ children, ok = true, dark = false }) {
   return (
     <div className={`flex gap-2.5 items-start text-[0.92rem] leading-relaxed ${ok ? '' : 'text-grey-5'}`}>
-      {ok ? <LuCheck size={17} className="shrink-0 mt-1" strokeWidth={2.6} /> : <LuX size={17} className="shrink-0 mt-1" strokeWidth={2.6} />}
+      {ok ? <LuCheck size={17} className={`shrink-0 mt-1 ${dark ? '' : 'text-[#CCFF00]'}`} strokeWidth={2.6} /> : <LuX size={17} className="shrink-0 mt-1" strokeWidth={2.6} />}
       <span>{children}</span>
     </div>
   );
@@ -127,7 +127,7 @@ function Point({ children, ok = true }) {
 
 function Card({ Icon, title, children, className = '' }) {
   return (
-    <SpotlightCard className={`reveal !rounded-none !border-0 !bg-grey-1 !p-8 flex flex-col gap-3.5 ${className}`} spotlightColor="rgba(255, 255, 255, 0.12)">
+    <SpotlightCard className={`reveal !rounded-none !border-0 !bg-grey-1 !p-8 flex flex-col gap-3.5 ${className}`} spotlightColor="rgba(204, 255, 0, 0.14)">
       {Icon && <div className="relative ca-ico"><Icon /></div>}
       <h3 className="relative text-white text-[1.2rem] leading-snug">{title}</h3>
       <div className="relative flex flex-col gap-3 text-[0.92rem] leading-relaxed text-grey-6">{children}</div>
@@ -135,23 +135,22 @@ function Card({ Icon, title, children, className = '' }) {
   );
 }
 
-function LiveSiteButton({ size = 'lg' }) {
-  const big = size === 'lg';
+function CompletedBadge() {
   return (
-    <a href={LIVE_URL} target="_blank" rel="noopener noreferrer" className={`ca-live-btn w-fit ${big ? 'px-7 py-5' : 'px-6 py-4'}`}>
+    <span className="inline-flex items-center gap-3 border border-[#CCFF00] text-[#CCFF00] px-6 py-4 w-fit">
+      <LuCheck size={22} strokeWidth={2.6} aria-hidden="true" />
       <span className="flex flex-col items-start leading-none">
-        <span className={`font-bebas tracking-[0.06em] ${big ? 'text-[1.9rem]' : 'text-[1.5rem]'}`}>Visit the Live Site</span>
-        <span className="ca-mono text-[0.68rem] tracking-[0.05em] opacity-60 mt-1">cheapass.app</span>
+        <span className="font-bebas text-[1.6rem] tracking-[0.06em]">Project Complete</span>
+        <span className="ca-mono text-[0.68rem] tracking-[0.05em] opacity-60 mt-1">Delivered {COMPLETED}</span>
       </span>
-      <span aria-hidden="true" className={big ? 'text-[1.6rem]' : 'text-[1.3rem]'}>↗</span>
-    </a>
+    </span>
   );
 }
 
 function PhoneMockup() {
   return (
     <div className="relative flex justify-center py-5">
-      <div aria-hidden="true" className="absolute left-1/2 top-1/2 w-[520px] h-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[10px]" style={{ background: 'radial-gradient(circle, rgba(255,255,255,.09), transparent 65%)' }} />
+      <div aria-hidden="true" className="absolute left-1/2 top-1/2 w-[520px] h-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[10px]" style={{ background: 'radial-gradient(circle, rgba(204,255,0,.12), transparent 65%)' }} />
       <div aria-hidden="true" className="hidden sm:block absolute right-0 top-5 w-[150px] h-[170px] bg-black overflow-hidden border border-grey-4 rotate-6 z-[3]" style={{ boxShadow: '0 30px 50px -20px rgba(0,0,0,.8)' }}>
         <img src={LOGO} alt="" className="w-full h-full object-cover block" />
       </div>
@@ -187,7 +186,7 @@ function PhoneMockup() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div><div className="ca-fl">Perceived tip</div><div className="ca-fi">$8.00</div></div>
-              <div><div className="ca-fl">Actual tip</div><div className="ca-fi !text-[#F87171] !border-[#F87171]/45">$0.00</div></div>
+              <div><div className="ca-fl">Actual tip</div><div className="ca-fi !text-[#CCFF00] !border-[#CCFF00]/45">$0.00</div></div>
             </div>
             <div>
               <div className="ca-fl">Issue category</div>
@@ -203,7 +202,7 @@ function PhoneMockup() {
                 <span className="block w-[52px] h-[52px] rounded-[10px] border-[1.5px] border-dashed border-white/20" />
               </div>
             </div>
-            <div className="mt-auto bg-white text-[#0a0a0b] text-center text-[13.5px] py-3 rounded-full">Post Delivery Note</div>
+            <div className="mt-auto bg-[#CCFF00] text-black text-center text-[13.5px] py-3 rounded-full">Post Delivery Note</div>
           </div>
         </div>
       </div>
@@ -225,7 +224,7 @@ export default function CheapAssCaseStudy() {
           aria-hidden="true"
           className="absolute inset-0 opacity-60"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(204,255,0,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(204,255,0,.07) 1px, transparent 1px)',
             backgroundSize: '56px 56px',
             WebkitMaskImage: 'radial-gradient(70% 60% at 50% 40%, #000, transparent 75%)',
             maskImage: 'radial-gradient(70% 60% at 50% 40%, #000, transparent 75%)',
@@ -248,7 +247,7 @@ export default function CheapAssCaseStudy() {
                 </span>
                 <span className="font-bebas text-[2rem] tracking-[0.06em] leading-none">CheapAss</span>
               </div>
-              <Eyebrow>Case Study · Gig Economy · Consumer SaaS Platform</Eyebrow>
+              <Eyebrow>Case Study · Gig Economy · Consumer SaaS Platform · Completed {COMPLETED}</Eyebrow>
               <h1 className="font-bebas uppercase text-white -mt-4" style={{ fontSize: 'clamp(3rem,6.5vw,6.2rem)', lineHeight: 0.92 }}>
                 The delivery driver's <Accent>secret weapon.</Accent>{' '}
                 <Muted>A community platform built for the gig economy.</Muted>
@@ -256,12 +255,13 @@ export default function CheapAssCaseStudy() {
               <p className="text-[1.1rem] leading-relaxed text-grey-6 max-w-[640px]">
                 CheapAss is a cross-platform Flutter application where delivery drivers share anonymous “Delivery Notes”, logging tips,
                 addresses, platform info, and issue categories for every drop. Other drivers can search those notes to avoid bad deliveries.
-                Built with Firebase, Stripe, Google Maps, and Flutter Web, it runs as a PWA on mobile and a full web app on desktop.
+                We designed, built, and delivered it end to end with Firebase, Stripe, Google Maps, and Flutter Web, as a PWA on mobile
+                and a full web app on desktop.
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                <LiveSiteButton />
+                <CompletedBadge />
                 <span className="flex items-center gap-2 text-[0.62rem] tracking-[0.25em] uppercase text-grey-5">
-                  <span className="block w-2 h-2 rounded-full bg-white" aria-hidden="true" /> Live in production
+                  <span className="block w-2 h-2 rounded-full bg-[#CCFF00]" aria-hidden="true" /> Shipped &amp; handed over
                 </span>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -280,7 +280,7 @@ export default function CheapAssCaseStudy() {
         <div ref={statsRef} className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-grey-3 border border-grey-3">
           {STATS.map((s, i) => (
             <div key={s.label} className="bg-grey-1 px-7 py-8">
-              <div className="font-bebas leading-none text-white" style={{ fontSize: 'clamp(3rem,5vw,4.5rem)' }}>{s.text ?? stats[i]}</div>
+              <div className="font-bebas leading-none text-[#CCFF00]" style={{ fontSize: 'clamp(3rem,5vw,4.5rem)' }}>{s.text ?? stats[i]}</div>
               <div className="mt-3 text-[0.72rem] tracking-[0.15em] uppercase text-white">{s.label}</div>
               <div className="mt-2 text-[0.85rem] leading-relaxed text-grey-5">{s.note}</div>
             </div>
@@ -340,7 +340,7 @@ export default function CheapAssCaseStudy() {
                     type="button"
                     onClick={() => setFilter(f.id)}
                     aria-pressed={on}
-                    className={`cursor-none min-h-[44px] px-4 text-[0.62rem] tracking-[0.18em] uppercase border transition-colors duration-200 ${on ? 'bg-off-white text-black border-off-white' : 'bg-transparent text-grey-5 border-grey-3 hover:text-white hover:border-grey-4'}`}
+                    className={`cursor-none min-h-[44px] px-4 text-[0.62rem] tracking-[0.18em] uppercase border transition-colors duration-200 ${on ? 'bg-[#CCFF00] text-black border-[#CCFF00]' : 'bg-transparent text-grey-5 border-grey-3 hover:text-[#CCFF00] hover:border-[#CCFF00]'}`}
                   >
                     {f.label}
                   </button>
@@ -356,7 +356,7 @@ export default function CheapAssCaseStudy() {
                 <SpotlightCard
                   key={`${filter}-${c.title}`}
                   className={`ca-in !rounded-none !border !border-grey-3 !bg-grey-1 !p-8 flex flex-col gap-3.5 ${wide ? 'lg:col-span-2' : ''}`}
-                  spotlightColor="rgba(255, 255, 255, 0.12)"
+                  spotlightColor="rgba(204, 255, 0, 0.14)"
                 >
                   <div className="relative flex justify-between items-center gap-2.5">
                     <span className="ca-mono text-[0.72rem] text-grey-4">{String(i + 1).padStart(2, '0')}</span>
@@ -384,7 +384,7 @@ export default function CheapAssCaseStudy() {
             role="img"
             aria-label="Architecture diagram: the Flutter app for web, PWA and mobile connects over HTTPS to Firebase Hosting, then to Firebase Auth and Cloud Firestore, Firebase Storage, Firebase Cloud Functions with four Stripe functions, Stripe, and external Google Maps and SMS services."
           >
-            <div className="px-5 py-4 text-center bg-off-white text-black">
+            <div className="px-5 py-4 text-center bg-[#CCFF00] text-black">
               <div className="text-[1.05rem]">Flutter App</div>
               <div className="text-[0.82rem] opacity-70 mt-1">Web · PWA · Mobile, one codebase</div>
             </div>
@@ -415,7 +415,7 @@ export default function CheapAssCaseStudy() {
             <div className="ca-v" />
             <div className="grid md:grid-cols-2 gap-3.5">
               <div className="px-5 py-4 bg-black border border-grey-3"><div className="text-white">Stripe</div><div className="text-[0.82rem] text-grey-5 mt-1">Checkout · Webhooks · Payment Intents</div></div>
-              <div className="px-5 py-4 bg-black border border-dashed border-grey-4"><div className="text-white">External APIs</div><div className="text-[0.82rem] text-grey-5 mt-1">Google Maps Platform (Places SDK, Geocoding) · Twilio / Firebase SMS (OTP, future)</div></div>
+              <div className="px-5 py-4 bg-black border border-dashed border-grey-4"><div className="text-white">External APIs</div><div className="text-[0.82rem] text-grey-5 mt-1">Google Maps Platform (Places SDK, Geocoding) · Twilio / Firebase SMS (OTP, planned for a later phase)</div></div>
             </div>
           </div>
           <p className="reveal max-w-[920px] mx-auto text-[1rem] leading-[1.75] text-grey-6">
@@ -439,15 +439,15 @@ export default function CheapAssCaseStudy() {
                 {idx === 1 && (
                   <div className="flex justify-center text-grey-5 rotate-90 lg:rotate-0" aria-hidden="true"><LuArrowRight size={34} /></div>
                 )}
-                <div className={`p-8 flex flex-col gap-5 ${p.hi ? 'bg-off-white text-black' : 'border border-grey-4 text-white'}`}>
-                  <span className={`self-start text-[0.6rem] tracking-[0.15em] uppercase px-2.5 py-1.5 ${p.hi ? 'bg-black text-off-white' : 'border border-grey-4 text-grey-6'}`}>{p.badge}</span>
+                <div className={`p-8 flex flex-col gap-5 ${p.hi ? 'bg-[#CCFF00] text-black' : 'border border-grey-4 text-white'}`}>
+                  <span className={`self-start text-[0.6rem] tracking-[0.15em] uppercase px-2.5 py-1.5 ${p.hi ? 'bg-black text-[#CCFF00]' : 'border border-grey-4 text-grey-6'}`}>{p.badge}</span>
                   <div className={`ca-mono text-[0.75rem] uppercase ${p.hi ? 'opacity-60' : 'text-grey-5'}`}>{p.name}</div>
                   <div className="flex items-baseline gap-2.5 flex-wrap">
                     <span className="font-bebas text-[4.5rem] leading-none">{p.price}</span>
                     <span className={p.hi ? 'opacity-60' : 'text-grey-5'}>{p.meta}</span>
                   </div>
                   <div className={`flex flex-col gap-2.5 pt-4 border-t ${p.hi ? 'border-black/15' : 'border-grey-3'}`}>
-                    {p.points.map(([pt, ok]) => <Point key={pt} ok={ok}>{pt}</Point>)}
+                    {p.points.map(([pt, ok]) => <Point key={pt} ok={ok} dark={p.hi}>{pt}</Point>)}
                   </div>
                 </div>
               </div>
@@ -494,13 +494,13 @@ export default function CheapAssCaseStudy() {
         <div className="max-w-[1400px] mx-auto flex flex-col gap-12">
           <div className="reveal">
             <Eyebrow>Results</Eyebrow>
-            <Heading id="ca-out-h">A real product, <Accent>used by real drivers.</Accent></Heading>
+            <Heading id="ca-out-h">Scoped, built, <Accent>and delivered.</Accent></Heading>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-grey-3 border border-grey-3">
             {OUTCOMES.map(({ title, text }) => (
               <div key={title} className="reveal bg-black p-8 flex flex-col gap-3">
                 <div className="flex gap-3 items-center">
-                  <span className="w-[30px] h-[30px] rounded-full bg-off-white text-black flex items-center justify-center shrink-0"><LuCheck size={16} strokeWidth={3} /></span>
+                  <span className="w-[30px] h-[30px] rounded-full bg-[#CCFF00] text-black flex items-center justify-center shrink-0"><LuCheck size={16} strokeWidth={3} /></span>
                   <h3 className="text-white text-[1.2rem] leading-snug">{title}</h3>
                 </div>
                 <p className="text-grey-6 leading-relaxed">{text}</p>
@@ -512,21 +512,20 @@ export default function CheapAssCaseStudy() {
 
       {/* 10. CTA */}
       <section aria-labelledby="ca-cta-h" className="relative overflow-hidden py-36 px-[3.5%] text-center hero-grid">
-        <div aria-hidden="true" className="absolute left-1/2 top-[55%] w-[1100px] h-[700px] -translate-x-1/2 -translate-y-1/2 blur-[20px]" style={{ background: 'radial-gradient(closest-side, rgba(255,255,255,.08), transparent)' }} />
+        <div aria-hidden="true" className="absolute left-1/2 top-[55%] w-[1100px] h-[700px] -translate-x-1/2 -translate-y-1/2 blur-[20px]" style={{ background: 'radial-gradient(closest-side, rgba(204,255,0,.10), transparent)' }} />
         <div className="reveal relative max-w-[900px] mx-auto flex flex-col items-center gap-6">
           <span className="block w-[92px] h-[108px] bg-black overflow-hidden border border-grey-4">
             <img src={LOGO} alt="" className="w-full h-full object-cover block" />
           </span>
           <Heading id="ca-cta-h">Got a community, marketplace, or <Accent>gig-economy idea?</Accent></Heading>
           <p className="max-w-[620px] text-[1.1rem] leading-relaxed text-grey-6">
-            We design and build products like this: fast, lean, and built to grow. From zero to a working product with real users.
+            We design and build products like this: fast, lean, and built to grow. CheapAss went from zero to a finished product, and yours can too.
           </p>
           <div className="flex flex-wrap justify-center gap-6 items-center mt-2">
-            <LiveSiteButton size="sm" />
-            <a href="/#contact" className="no-underline border border-off-white text-off-white text-[0.72rem] tracking-[0.2em] uppercase px-8 py-4 hover:bg-off-white hover:text-black transition-colors duration-200">
+            <a href="/#contact" className="no-underline border border-[#CCFF00] text-[#CCFF00] text-[0.72rem] tracking-[0.2em] uppercase px-8 py-4 hover:bg-[#CCFF00] hover:text-black transition-colors duration-200">
               Start a Project ↗
             </a>
-            <a href="/#work" className="no-underline text-[0.68rem] tracking-[0.18em] uppercase text-white border-b border-white/30 pb-0.5">
+            <a href="/#work" className="no-underline text-[0.68rem] tracking-[0.18em] uppercase text-[#CCFF00] border-b border-[#CCFF00]/40 pb-0.5">
               ← Back to all work
             </a>
           </div>

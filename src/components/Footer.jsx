@@ -1,11 +1,6 @@
-const nav = ['Services', 'Work', 'Team', 'Stack', 'Contact'];
+import { socials } from './socials';
 
-const socials = [
-  { label: 'hello@endermonks.com', href: 'mailto:hello@endermonks.com' },
-  { label: 'LinkedIn', href: '#' },
-  { label: 'GitHub', href: '#' },
-  { label: 'WhatsApp', href: '#' },
-];
+const nav = ['Services', 'Work', 'Team', 'Stack', 'Contact'];
 
 export default function Footer({ base = '' }) {
   return (
@@ -55,6 +50,7 @@ export default function Footer({ base = '' }) {
                   className="flex items-center gap-3 text-[0.78rem] tracking-wide text-grey-5 no-underline hover:text-white transition-colors duration-200 w-fit group"
                 >
                   <span className="block w-4 h-px bg-grey-5 group-hover:w-8 group-hover:bg-[#FAA6FF] transition-all duration-300" />
+                  {s.icon}
                   {s.label}
                 </a>
               ))}

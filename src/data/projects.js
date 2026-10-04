@@ -22,13 +22,13 @@ export const themes = {
     dot: 'bg-white',
     stat: 'text-[#8BD0F2]',
   },
-  mono: {
-    glow: 'rgba(255,255,255,.07)',
-    tag: 'text-white border-white/40',
-    link: 'group-hover:text-grey-6 group-hover:border-grey-6',
-    btn: 'bg-off-white text-black hover:bg-white',
+  lime: {
+    glow: 'rgba(204,255,0,.14)',
+    tag: 'text-[#CCFF00] border-[#CCFF00]/40',
+    link: 'group-hover:text-[#CCFF00] group-hover:border-[#CCFF00]',
+    btn: 'bg-[#CCFF00] text-black hover:bg-white',
     dot: 'bg-black',
-    stat: 'text-white',
+    stat: 'text-[#CCFF00]',
   },
   orange: {
     glow: 'rgba(255,106,19,.28)',
@@ -68,7 +68,7 @@ export const projects = [
   },
   {
     num: '03',
-    theme: 'mono',
+    theme: 'lime',
     href: '/work/cheapass',
     liveUrl: 'https://cheapass.app',
     cat: 'Gig Economy · Consumer SaaS',
