@@ -38,6 +38,14 @@ export const themes = {
     dot: 'bg-black',
     stat: 'text-[#FF8A3D]',
   },
+  gold: {
+    glow: 'rgba(226,184,87,.25)',
+    tag: 'text-[#F0D28A] border-[#F0D28A]/40',
+    link: 'group-hover:text-[#F0D28A] group-hover:border-[#F0D28A]',
+    btn: 'bg-[#E2B857] text-black hover:bg-[#F0D28A]',
+    dot: 'bg-black',
+    stat: 'text-[#F0D28A]',
+  },
 };
 
 export const projects = [
@@ -89,5 +97,18 @@ export const projects = [
       "A honeypot that doesn't just detect attacks, it physically shows you one. A Cowrie SSH honeypot on a Raspberry Pi feeds a machine learning detection engine and a live dashboard, and an Arduino-driven set of lights turns off, dims or flickers depending on what the attacker is doing.",
     stats: [['3', 'Attack types classified'], ['89%', 'Random Forest accuracy'], ['3', 'Physical lights'], ['2', 'Detection layers']],
     tags: ['Python', 'scikit-learn', 'Cowrie', 'Raspberry Pi', 'Arduino'],
+  },
+  {
+    num: '05',
+    theme: 'gold',
+    href: '/work/evorn',
+    liveUrl: 'https://evorn.lk',
+    cat: 'E-commerce · Jewellery',
+    name: 'EVORN',
+    brief:
+      "An online jewellery store built for real trading in Sri Lanka. Customers shop on evorn.lk, and every order sends an instant email receipt and an SMS from the approved EVORN sender ID.",
+    stats: [['2', 'Alert channels'], ['1', 'Approved sender ID'], ['.lk', 'Own domain'], ['Live', 'On Vercel']],
+    // React and Tailwind are assumed: confirm
+    tags: ['React', 'Tailwind', 'Vercel', 'Resend', 'SMSAPI.lk'],
   },
 ];

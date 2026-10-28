@@ -15,6 +15,7 @@ import VCareCaseStudy from './components/VCare/VCareCaseStudy';
 import WorldClassCaseStudy from './components/WorldClass/WorldClassCaseStudy';
 import CheapAssCaseStudy from './components/CheapAss/CheapAssCaseStudy';
 import HoneylightCaseStudy from './components/Honeylight/HoneylightCaseStudy';
+import EvornCaseStudy from './components/Evorn/EvornCaseStudy';
 import PortfolioPage from './components/Portfolio/PortfolioPage';
 
 // Minimal path routing — the portfolio and case-study pages live at their own URL; everything else is the one-page site.
@@ -24,6 +25,7 @@ const CASE_STUDIES = {
   '/work/world-class-travels': WorldClassCaseStudy,
   '/work/cheapass': CheapAssCaseStudy,
   '/work/honeylight': HoneylightCaseStudy,
+  '/work/evorn': EvornCaseStudy,
 };
 const path = window.location.pathname.replace(/\/+$/, '');
 
